@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Une plateforme de partage d'exposés en tout genre. Un catalogue rempli de présentations palpitantes !">
+  <meta name="application-name" content="Expoflux">
+  <title>Expoflux - Accueil (En construction)</title>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.all.min.js"></script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <script type="module" src="js/auth/nav-account-banner.js" defer></script>
+    <link rel="stylesheet" href="css/profile-banner.css">
+      <link rel="icon" href="assets/icon.png">
+      <script src="js/check_mobile.js" defer></script>
+      <script src="js/littlePopup.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuid.min.js" defer></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.css">
+      <link rel="stylesheet" href="css/cropopup.css">
+      <link rel="stylesheet" href="css/bandeau.css">
+      <link rel="stylesheet" href="css/littlePopup.css">
+      <link rel="stylesheet" href="css/index.css">
+      <nav id="mainNav">
+          <a href="index.html"><img id="logo" src="assets/logo.png"></a>
+          <a href="index.html">Accueil</a>
+          <a href="browse.html">Explorer</a>
+          <a href="login.html">Se connecter</a>
+          <a href="changelog.html">Fil de nouveautés</a>
+      </nav>
+</head>
+<body>
+<div class="container">
+    <h1>En construction</h1>
+    <section class="features-container">
+        <div class="feature">
+            <i class="fi fi-rr-otp"></i>
+            <p>Ton mot de passe est chiffré avant d'être ajouté à notre base de données. Peu de chance qu'un hacker s'attaque à ton compte !</p>
+        </div>
+        <div class="feature">
+            <i class="fi fi-rr-binoculars"></i>
+            <p>N'hésite pas à explorer les exposés d'autres personnes si tu manques d'inspiration, ou si tu veux apprendre quelque chose facilement !</p>
+        </div>
+        <div class="feature">
+            <br>
+            <br>
+            <i class="fi fi-rr-system-cloud"></i>
+            <p>Expoflux se charge de stocker les exposés, pour que tu puisses te concentrer sur ta présentation.</p>
+        </div>
+    </section>
+   <footer>Ce site et les services qu'il propose sont le fruit du travail d'Anes OUHBA, alias Miaou KING.</footer>
+</div>
+</body>
+<script defer>
+  var nav = document.getElementById("mainNav");
+  var navHeight = nav.offsetHeight;
+  var container = document.getElementsByClassName("container")[0];
+  container.style = "margin: " + navHeight + "px auto auto auto;";
+</script>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Une plateforme de partage d'exposés en tout genre. Un catalogue rempli de présentations palpitantes !">
+  <meta name="application-name" content="Expoflux">
+  <title>Expoflux - Explorer</title>
+      <link rel="stylesheet" href="css/style.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.all.min.js"></script>
+      <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
+      <link rel="icon" href="assets/icon.png">
+      <script src="js/ui.js"></script>
+      <script src="js/check_mobile.js" defer></script>
+      <script src="js/browse_stuff.js"></script>
+      <script src="js/littlePopup.js"></script>
+      <script src="js/upload.js" type="module"></script>
+      <script type="module" src="js/view.js"></script>
+    <script type="module" src="js/auth/nav-account-banner.js" defer></script>
+    <link rel="stylesheet" href="css/profile-banner.css">
+      <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuid.min.js" defer></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.css">
+      <link rel="stylesheet" href="css/cropopup.css">
+      <link rel="stylesheet" href="css/bandeau.css">
+      <link rel="stylesheet" href="css/littlePopup.css">
+      <nav id="mainNav">
+        <a href="index.html"><img id="logo" src="assets/logo.png"></a>
+        <a href="index.html">Accueil</a>
+        <a href="browse.html">Explorer</a>
+        <a href="login.html">Se connecter</a>
+        <a href="changelog.html">Fil de nouveautés</a>
+      </nav>
+</head>
+<body>
+<div class="searching-container">
+<input type="search" placeholder="Recherche un exposé..." id="searchBar" onChange=""><button id="filters-button"><i class="fi fi-br-settings-sliders"></i></button>
+</div>
+<div class="container"></div>
+</body>
+<script>
+  window.onload = async () => {
+      // Attend que les fonctions soient globalisées
+      await new Promise((resolve) => {
+        const intervalId = setInterval(() => {
+          if (window.getItems && window.createAllGroups) {
+            clearInterval(intervalId);
+            resolve();
+          }
+        }, 100); // Vérifie toutes les 100 millisecondes si les fonctions sont définies (et donc prêtes)
+      });
+
+      // Maintenant que les fonctions sont disponibles, on peut les utiliser no problemo
+    async function start() {
+      console.log("Initiating Expoflux...")
+      createAllGroups();
+      await getItems();
+      console.log("Expoflux started without a problem!")
+    };
+    start();
+    };
+  var nav = document.getElementById("mainNav");
+  var navHeight = nav.offsetHeight;
+  var container = document.getElementsByClassName("searching-container")[0];
+  container.style = "margin: " + navHeight + "px auto auto auto;";
+</script>
+</html>

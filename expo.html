@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expoflux - Exposé</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuid.min.js" defer></script>
+    <link rel="stylesheet" href="css/expo-page.css">
+    <link rel="icon" href="assets/icon.png">
+    <link rel="stylesheet" href="css/profile-banner.css">
+    <link rel="stylesheet" href="css/share-popup.css">
+    <script src="js/check_mobile.js" defer></script>
+    <script src="js/expo-page/download.js" type="module"></script>
+    <script src="js/expo-page/report.js" type="module"></script>
+    <script src="js/auth/is_connected.js" type="module"></script>
+    <script src="js/favoris.js" type="module"></script>
+    <script src="js/expo-page/views.js" type="module"></script>
+    <script src="js/littlePopup.js"></script>
+    <script src="js/share-popup-stuff.js" defer></script>
+    <script src="js/expo-page/get-expo-from-uuid.js" type="module"></script>
+    <script src="js/expo-page/get-user-from-uuid.js" type="module"></script>
+    <script src="js/auth/get-connected-user-info.js" type="module"></script>
+    <script type="module" src="js/auth/nav-account-banner.js" defer></script>
+    <script src="js/themes.js" type="module"></script>
+    <link rel="stylesheet" href="css/bandeau.css">
+    <link rel="stylesheet" href="css/littlePopup.css">
+    <nav id="mainNav">
+        <a href="index.html"><img id="logo" src="assets/logo.png"></a>
+        <a href="index.html">Accueil</a>
+        <a href="browse.html">Explorer</a>
+        <a href="login.html">Se connecter</a>
+        <a href="changelog.html">Fil de nouveautés</a>
+    </nav>
+</head>
+<body>
+    <div class="container">
+        <div id="icon-box"></div>
+        <div class="cool-effect"></div>
+        <div class="actual-content">
+            <h2 id="expo-name"></h2>
+            <br>
+            <br>
+            <p id="expo-desc"></p>
+            <br>
+            <small id="downloads"></small>
+            <button id="heart-button"><i class="fi fi-sr-heart"></i></button>
+            <div id="view-counter"></div>
+            <button id="present-button" onclick="window.present(window.expo.file);"><i class="fi fi-br-play-circle"></i>    Présenter</button><button id="download-button" onclick="window.download(window.expo.file, window.expo.filename, window.this_expo_uuid);"><i class="fi fi-br-download"></i>    Télécharger</button><button id="share-button" onclick="window.share();" class="open-popup"><i class="fi fi-br-share"></i><i class="fi fi-br-copy" style="display: none;"></i>    Partager</button><button id="report-button" onclick="window.report(window.this_expo_uuid);"><i class="fi fi-br-flag-alt"></i>    Signaler</button>
+            <div class="popup">
+                <header>
+                    <span>Partager</span>
+                    <div class="close"><i class="uil uil-times"></i></div>
+                </header>
+                <div class="content">
+                    <p>Partager cet exposé via</p>
+                    <ul class="icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                    </ul>
+                    <p>Ou copier le lien</p>
+                    <div class="field">
+                        <i class="url-icon uil uil-link"></i>
+                        <input type="text" id="share-link" readonly>
+                        <button class="copy-link-button">Copier</button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="author-banner">
+                <img class="author-icon">
+                <div class="author-banner-text">
+                  <div class="author-name"></div>
+                    <br>
+                  <div class="author-email"></div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <h3>Catégories :</h3>
+            <button class="categ" id="subject"></button><button class="categ" id="filetype"></button>
+            <small id="date"></small>
+        </div>
+    </div>
+</body>
+<script>
+    window.onload = async () => {
+        // Attend que les fonctions soient globalisées
+        await new Promise((resolve) => {
+          const intervalId = setInterval(() => {
+            if (window.get_expo_from_uuid && window.get_uuid_from_url && window.download) {
+              clearInterval(intervalId);
+              resolve();
+            }
+          }, 100); // Vérifie toutes les 100 millisecondes si les fonctions sont définies (et donc prêtes)
+        });
+
+        function fullscreenchanged(event) {
+            if (window.fullscreenpreview == true) {
+                var preview = document.querySelector(".preview")
+                preview.parentNode.removeChild(preview);
+            } else { //Si il n'y a rien à enlever
+                var a = "abc"
+            }
+            window.fullscreenpreview = !window.fullscreenpreview
+        };
+        window.fullscreenchanged = fullscreenchanged;
+
+        function forcefullyclosefullscreen(event) {
+            var preview = document.querySelector(".preview")
+            preview.parentNode.removeChild(preview);
+            document.exitFullscreen()
+            window.fullscreenpreview = !window.fullscreenpreview
+        };
+        window.forcefullyclosefullscreen = forcefullyclosefullscreen;
+
+        function present(url) {
+            var present_button = document.getElementById("present-button");
+            if (present_button.className == "disabled") {
+                littlePopup({'icon':'error', 'text':"Ce type de fichier ne peut pas être présenté en ligne."});
+                return;
+            } else {
+                switch (window.presentmode) {
+                    case "ppt":
+                        littlePopup({'icon':'warning', 'text':"Cette fonctionnalité est encore en bêta, ne t'attends pas à ce qu'elle fonctionne parfaitement."});
+                        var my_iframe_div = document.createElement("div")
+                        my_iframe_div.innerHTML = "<header><div class='previewclose' onclick='forcefullyclosefullscreen();'><i class='uil uil-times'></i></div></header>"
+                        var my_new_iframe = document.createElement("iframe");
+                        my_new_iframe.src = "https://view.officeapps.live.com/op/embed.aspx?src=" + window.expo.file;
+                        my_new_iframe.style = "height:100%;";
+                        my_iframe_div.style = "z-index: 999999; display: flex; justify-content: center; align-items: center; text-align: center; min-height: 100vh;";
+                        my_iframe_div.className = "preview";
+                        my_iframe_div.appendChild(my_new_iframe);
+                        document.body.appendChild(my_iframe_div);
+                        my_iframe_div.requestFullscreen();
+                        break;
+
+                        var x = `littlePopup({'icon':'warning', 'text':"Cette fonctionnalité est encore en bêta, ne t'attends pas à ce qu'elle fonctionne parfaitement."});
+                        var my_new_iframe = document.createElement("iframe");
+                        console.log("https://view.officeapps.live.com/op/embed.aspx?src=" + window.expo.file);
+                        console.log("https://view.officeapps.live.com/op/embed.aspx?src=" + window.expo.file);
+                        my_new_iframe.src = "https://view.officeapps.live.com/op/embed.aspx?src=" + window.expo.file;
+                        my_new_iframe.style = "z-index: 999999;";
+                        my_new_iframe.className = "preview";
+                        my_new_iframe.innerHTML = "<header><div class='previewclose' onclick='forcefullyclosefullscreen();'><i class='uil uil-times'></i></div></header>"
+                        my_new_iframe.requestFullscreen();
+                        break;`
+                    case "img":
+                        littlePopup({'icon':'warning', 'text':"Cette fonctionnalité est encore en bêta, ne t'attends pas à ce qu'elle fonctionne parfaitement."});
+                        var my_img_div = document.createElement("div")
+                        my_img_div.innerHTML = "<header><div class='previewclose' onclick='forcefullyclosefullscreen();'><i class='uil uil-times'></i></div></header>"
+                        var my_new_img = document.createElement("img");
+                        my_new_img.src = window.expo.file;
+                        my_new_img.style = "height:100%";
+                        my_img_div.style = "z-index: 999999; display: flex; justify-content: center; align-items: center; text-align: center; min-height: 100vh;";
+                        my_img_div.className = "preview";
+                        my_img_div.appendChild(my_new_img);
+                        document.body.appendChild(my_img_div);
+                        my_img_div.requestFullscreen();
+                        break;
+                    case "audio":
+                        littlePopup({'icon':'warning', 'text':"Cette fonctionnalité est encore en bêta, ne t'attends pas à ce qu'elle fonctionne parfaitement."});
+                        var my_audio_div = document.createElement("div")
+                        my_audio_div.innerHTML = "<header><div class='previewclose' onclick='forcefullyclosefullscreen();'><i class='uil uil-times'></i></div></header><h4 style='color: white;'>Audio :</h4><br>"
+                        var my_new_audio = document.createElement("audio");
+                        my_new_audio.src = window.expo.file;
+                        my_new_audio.controls = true;
+                        my_new_audio.autoplay = true;
+                        my_new_audio.style = "width: 60%;"
+                        my_audio_div.style = "z-index: 999999; display: flex; justify-content: center; align-items: center; text-align: center; min-height: 100vh;";
+                        my_audio_div.className = "preview";
+                        my_audio_div.appendChild(my_new_audio);
+                        document.body.appendChild(my_audio_div);
+                        my_audio_div.requestFullscreen();
+                        break;
+                    case "video":
+                        littlePopup({'icon':'warning', 'text':"Cette fonctionnalité est encore en bêta, ne t'attends pas à ce qu'elle fonctionne parfaitement."});
+                        var my_video_div = document.createElement("div")
+                        my_video_div.innerHTML = "<header><div class='previewclose' onclick='forcefullyclosefullscreen();'><i class='uil uil-times'></i></div></header>"
+                        var my_new_video = document.createElement("video");
+                        my_new_video.src = window.expo.file;
+                        my_new_video.controls = true;
+                        my_new_video.autoplay = true;
+                        my_new_video.style = "height:100%";
+                        my_video_div.style = "z-index: 999999; display: flex; justify-content: center; align-items: center; text-align: center; min-height: 100vh;";
+                        my_video_div.className = "preview";
+                        my_video_div.appendChild(my_new_video);
+                        document.body.appendChild(my_video_div);
+                        my_video_div.requestFullscreen();
+                        break;
+                }
+                window.fullscreenpreview = false
+                var preview = document.querySelector(".preview")
+                preview.addEventListener("fullscreenchange", fullscreenchanged)
+            }
+        };
+        window.present = present;
+
+        async function favori() {
+            var heart_button = document.getElementById("heart-button"); //Le bouton Ajouter en favoris
+            if (heart_button.className == "disabled") {
+                littlePopup({'icon':'warning', 'text':"Cette fonctionnalité est réservée aux utilisateurs connectés !"});
+                return;
+            } else {
+                window.heart_button_icon = heart_button.querySelector("i");
+
+                if (heart_button_icon.className == "fi fi-sr-heart") {
+                    await remove_favoris(this_expo_uuid);
+                    //Enlever favori
+                    heart_button_icon.className = "hidden";
+
+                    setTimeout(() => {
+                      heart_button_icon.className = "fi fi-rr-heart";
+                    }, 300);
+                } else {
+                    await add_favoris(this_expo_uuid);
+                    //Mettre en favori
+                    heart_button_icon.className = "hidden";
+
+                    setTimeout(() => {
+                      heart_button_icon.className = "fi fi-sr-heart";
+                    }, 300);
+                }
+            }
+        };
+        window.favori = favori;
+
+        // Maintenant que les fonctions sont disponibles, on peut les utiliser no problemo
+      async function start() {
+        console.log("Initiating Expoflux...");
+
+        var this_expo_uuid = get_uuid_from_url();
+        window.this_expo_uuid = this_expo_uuid;
+        console.log("L'uuid détecté est " + this_expo_uuid);
+
+        if (this_expo_uuid == undefined) {
+            await Swal.fire({
+                title: 'Lien incorrect',
+                text: "Cette URL est incorrecte.",
+                icon: 'error',
+                confirmButtonText: 'OK',
+                allowOutsideClick : false,
+                allowEscapeKey : false,
+                allowEnterKey : false,
+            });
+            await history.back();
+        }
+
+        var expo = await get_expo_from_uuid(this_expo_uuid);
+        window.expo = expo;
+        console.log(expo);
+
+        if (expo == undefined) {
+            await Swal.fire({
+                title: "Cet exposé n'existe pas",
+                text: "L'exposé que tu essaies de voir n'existe pas ! Vérifie l'URL pour voir si celle-ci ne contient pas d'erreurs.",
+                icon: 'error',
+                confirmButtonText: 'OK',
+                allowOutsideClick : false,
+                allowEscapeKey : false,
+                allowEnterKey : false,
+            });
+            await history.back();
+        }
+
+        var cui = await get_connected_user_info()
+        if (cui == undefined) {
+            cui = {"uid":"smth"};
+        }
+        if (expo.private == true) {
+             if (expo.author !== cui.uid) {
+                await Swal.fire({
+                    title: "Cet exposé est privé",
+                    text: "L'exposé que tu essaies de voir est privé !",
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    allowOutsideClick : false,
+                    allowEscapeKey : false,
+                    allowEnterKey : false,
+                });
+                await history.back();
+            }
+        }
+
+        var share_link = document.getElementById("share-link");
+        share_link.value = document.URL;
+
+        var user = await get_user_from_uuid(expo.author);
+        window.user = user;
+        console.log(user);
+
+        var author_name = document.querySelector(".author-name"); //Le nom de l'auteur de l'exposé
+        author_name.innerHTML = user.displayName;
+
+        var author_email = document.querySelector(".author-email"); //La date de l'auteur de l'exposé
+        var userdate = user.date.toDate() //Date à laquelle l'user a été publié
+        var year = userdate.getFullYear();
+        var month;
+        switch (userdate.getMonth()) {
+            case 0:
+                month = "Janvier";
+                break
+            case 1:
+                month = "Février";
+                break
+            case 2:
+                month = "Mars";
+                break
+            case 3:
+                month = "Avril";
+                break
+            case 4:
+                month = "Mai";
+                break
+            case 5:
+                month = "Juin";
+                break
+            case 6:
+                month = "Juillet";
+                break
+            case 7:
+                month = "Août";
+                break
+            case 8:
+                month = "Septembre";
+                break
+            case 9:
+                month = "Octobre";
+                break
+            case 10:
+                month = "Novembre";
+                break
+            case 11:
+                month = "Décembre";
+                break
+        }
+        var day = userdate.getDate();
+        author_email.innerHTML = "Créé le " + day + " " + month + " " + year;
+
+        var author_icon = document.querySelector(".author-icon"); //L'icône de l'auteur de l'exposé
+        author_icon.src = user.photoURL;
+
+        var view_counter = document.querySelector("#view-counter"); //Le compteur de vues
+        view_counter.innerHTML = (expo.views + 1) + '     <i class="fi fi-rr-eye"></i>'
+        await add_view(this_expo_uuid)
+
+        var heart_button = document.querySelector("#heart-button"); //Le bouton Ajouter en favoris
+        window.heart_button_icon = heart_button.querySelector("i");
+
+        heart_button.onclick = async function() {favori();}; //Clicker sur le bouton Favoris ajoute vraiment en favoris.
+
+        window.r = function() {
+            heart_button_icon.className = "hidden";
+
+            setTimeout(() => {
+              heart_button_icon.className = "fi fi-rr-heart";
+            }, 300);
+        }; //Pas en favoris
+
+        window.s = function() {
+            heart_button_icon.className = "hidden";
+
+            setTimeout(() => {
+              heart_button_icon.className = "fi fi-sr-heart";
+            }, 300);
+        }; //En favoris
+
+        if (await is_connected()) {
+            console.log("L'user est connecté, on peu donc vérifier si l'expo est favoris ou non.");
+            if (await is_favoris()) {
+                s();
+            } else {
+                r();
+            }
+        } else {
+            console.log("L'user n'est pas connecté !'.");
+            console.log("Désactivation du bouton...");
+            heart_button.className = "disabled";
+        }
+
+        var titletag = document.querySelector("title"); //Le titre de la page est changé vers le nom de l'exposé
+        titletag.innerHTML = "Exposé : " + expo.name;
+
+        var iconbox = document.getElementById("icon-box"); //Aperçu de l'exposé
+        iconbox.style = 'background-image: url("' + expo.icon + '");';
+
+        var name = document.getElementById("expo-name"); //Nom de l'exposé
+        name.innerHTML = expo.name;
+
+        var desc = document.getElementById("expo-desc"); //Description de l'exposé
+        desc.innerHTML = expo.desc;
+
+        var downloads_counter = document.getElementById("downloads"); //Compteur de téléchargements
+        var downloads = expo.downloads
+        if (downloads == 0) {
+            downloads_counter.innerHTML = "Cet exposé n'a pas encore été téléchargé. Sois le premier à le découvrir !";
+        } else {
+            downloads_counter.innerHTML = "Cet exposé a été téléchargé " + expo.downloads + " fois.";
+        }
+
+        var subject = document.getElementById("subject"); //Catégorie de la matière
+        switch (expo.subject) {
+            case "islam":
+                subject.innerHTML = "Éthique musulmane";
+                break
+            case "eps":
+                subject.innerHTML = "EPS";
+                break
+            case "fr":
+                subject.innerHTML = "Français";
+                break
+            case "eng":
+                subject.innerHTML = "Anglais LVA";
+                break
+            case "engrenf":
+                subject.innerHTML = "Anglais renforcé";
+                break
+            case "engeuro":
+                subject.innerHTML = "Anglais euro";
+                break
+            case "ar":
+                subject.innerHTML = "Arabe LVB";
+                break
+            case "arrenf":
+                subject.innerHTML = "Arabe renforcé";
+                break
+            case "alm":
+                subject.innerHTML = "Allemand LVB";
+                break
+            case "esp":
+                subject.innerHTML = "Espagnol LVB";
+                break
+            case "lat":
+                subject.innerHTML = "Latin";
+                break
+            case "svt":
+                subject.innerHTML = "S.V.T.";
+                break
+            case "ps":
+                subject.innerHTML = "Physique-Chimie";
+                break
+            case "techno":
+                subject.innerHTML = "Technologie";
+                break
+            case "ap":
+                subject.innerHTML = "Arts plastiques";
+                break
+            case "em":
+                subject.innerHTML = "Éducation musicale";
+                break
+            case "h":
+                subject.innerHTML = "Histoire";
+                break
+            case "geo":
+                subject.innerHTML = "Géographie";
+                break
+            case "emc":
+                subject.innerHTML = "EMC";
+                break
+        }
+
+        var filetype = document.getElementById("filetype"); //Catégorie du type de fichier
+        filetype.innerHTML = "Fichier ." + expo.filetype;
+
+
+        var present_button = document.getElementById("present-button"); //Checker si le type de fichier est "présentable", et si il ne l'est pas désactiver le bouton
+        switch (expo.filetype) {
+            case "ppt":
+            case "pptx":
+                console.log("Le fichier est compatible (diaporama PowerPoint), et peut donc être présenté.");
+                window.presentmode = "ppt"
+                break
+            case "png":
+            case "apng":
+            case "avif":
+            case "gif":
+            case "jpg":
+            case "jpeg":
+            case "jfif":
+            case "pjpeg":
+            case "pjp":
+            case "svg":
+            case "webp":
+            case "bmp":
+            case "ico":
+            case "cur":
+            case "tif":
+            case "tiff":
+                console.log("Le fichier est compatible (image), et peut donc être présenté.");
+                window.presentmode = "img"
+                break
+            case "mp3":
+            case "wav":
+            case "ogg":
+                console.log("Le fichier est compatible (audio), et peut donc être présenté.");
+                window.presentmode = "audio"
+                break
+            case "mp4":
+            case "webm":
+            case "ogg":
+                console.log("Le fichier est compatible (vidéo), et peut donc être présenté.");
+                window.presentmode = "video"
+                break
+            default:
+                console.log("Le fichier n'est pas compatible, et ne peut donc pas être présenté.");
+                console.log("Désactivation du bouton...");
+                window.presentmode = "null"
+                present_button.className = "disabled";
+                break
+        }
+
+        const date = expo.date.toDate(); //Date à laquelle l'exposé a été publié
+        window.date = date;
+
+        var year = date.getFullYear();
+        var month;
+        switch (date.getMonth()) {
+            case 0:
+                month = "Janvier";
+                break
+            case 1:
+                month = "Février";
+                break
+            case 2:
+                month = "Mars";
+                break
+            case 3:
+                month = "Avril";
+                break
+            case 4:
+                month = "Mai";
+                break
+            case 5:
+                month = "Juin";
+                break
+            case 6:
+                month = "Juillet";
+                break
+            case 7:
+                month = "Août";
+                break
+            case 8:
+                month = "Septembre";
+                break
+            case 9:
+                month = "Octobre";
+                break
+            case 10:
+                month = "Novembre";
+                break
+            case 11:
+                month = "Décembre";
+                break
+        }
+        var day = date.getDate();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+
+        var date_div = document.getElementById("date");
+        date_div.innerHTML = "Cet exposé a été publié le " + day + " " + month + " " + year + " à " + hours + "h" + minutes;
+
+        console.log("Expoflux started without a problem!");
+      };
+      start();
+      };
+</script>
+</html>

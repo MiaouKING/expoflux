@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Une plateforme de partage d'exposés en tout genre. Un catalogue rempli de présentations palpitantes !">
+    <meta name="application-name" content="Expoflux">
+    <title>Expoflux - Tableau de bord</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tabstuff.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
+    <link rel="icon" href="assets/icon.png">
+    <script src="js/ui.js"></script>
+    <script src="js/check_mobile.js" defer></script>
+    <script src="js/browse_stuff.js"></script>
+    <script src="js/littlePopup.js"></script>
+    <script src="js/tabstuff.js"></script>
+    <script src="js/upload.js" type="module"></script>
+    <script src="js/auth/get-connected-user-info.js" type="module"></script>
+    <script src="js/expo-page/get-expo-from-uuid.js" type="module"></script>
+    <script src="js/expo-page/get-user-from-uuid.js" type="module"></script>
+    <script src="js/auth/need-to-be-connected.js" type="module"></script>
+    <script src="js/get-expos-from-user.js" type="module"></script>
+    <script type="module" src="js/auth/nav-account-banner.js" defer></script>
+    <script src="js/upload.js" type="module"></script>
+    <script src="js/applying-settings.js" type="module"></script>
+    <link rel="stylesheet" href="css/profile-banner.css">
+    <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuid.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel="stylesheet" href="css/cropopup.css">
+    <link rel="stylesheet" href="css/bandeau.css">
+    <link rel="stylesheet" href="css/littlePopup.css">
+    <nav id="mainNav">
+        <a href="index.html"><img id="logo" src="assets/logo.png"></a>
+        <a href="index.html">Accueil</a>
+        <a href="browse.html">Explorer</a>
+        <a href="login.html">Se connecter</a>
+        <a href="changelog.html">Fil de nouveautés</a>
+    </nav>
+</head>
+<body>
+<div class="container">
+    <div class="tab">
+        <button class="tablinks default-tab" onclick="openCity(event, 'new-presentation')"><i class="fi fi-rr-add-document"></i> Publier un nouvel exposé</button>
+        <button class="tablinks" onclick="openCity(event, 'my-presentations')"><i class="fi fi-rr-chart-user"></i> Mes exposés</button>
+        <button class="tablinks" onclick="openCity(event, 'favoris')"><i class="fi fi-rr-heart"></i> Favoris</button>
+        <button class="tablinks" onclick="openCity(event, 'settings')"><i class="fi fi-rr-settings"></i> Paramètres</button>
+    </div>
+
+    <!-- Tab content -->
+    <div id="new-presentation" class="tabcontent">
+        <h2>Publier un nouvel exposé</h2>
+        <p>Ici, tu peux commencer à publier de nouvelles présentations palpitantes !</p>
+        <div style="color:red">Ce formulaire ne fonctionne pas; appuie sur le bouton en bas !</div>
+        <form>
+            <div>
+                <label>Nom de l'exposé</label>
+                <input type="text">
+            </div>
+            <div>
+                <label>Description de l'exposé</label>
+                <input type="text">
+            </div>
+            <div>
+                <label>Matière de l'exposé</label>
+                <input type="select">
+            </div>
+            <div>
+                <label>Nom de l'exposé</label>
+                <input type="text">
+            </div>
+            <div>
+                <label>Fichier aperçu de l'exposé</label>
+                <input type="file">
+            </div>
+            <div>
+                <label>Fichier de l'exposé</label>
+                <input type="text">
+            </div>
+            <div>
+                <label>Souhaites-tu garder l'exposé privé ?</label>
+                <input type="checkbox">
+            </div>
+        </form>
+        <div style="text-align:center; padding: 2.5em;">
+            <button class="action-button" onClick="upload_expo();"><i class="fi fi-rr-add-document"></i> Publier un exposé</button>
+        </div>
+    </div>
+
+    <div id="my-presentations" class="tabcontent my-expos-container">
+    </div>
+
+    <div id="favoris" class="tabcontent my-favoris-container">
+    </div>
+
+    <div id="settings" class="tabcontent">
+        <div>
+            <h2>Personnalisation</h2>
+            <label>Choisis un thème : </label><select id="theme-select">
+                <option value="dark">Sombre</option>
+                <option value="light">Clair</option>
+                <option value="blue">Bleu</option>
+            </select>
+        </div>
+        <button id="save-changes-button" onclick="apply_settings()"><i class="fi fi-br-disk"></i> Sauvegarder les changements</button>
+    </div>
+</div>
+</body>
+<script>
+    window.onload = async () => {
+        // Attend que les fonctions soient globalisées
+        await new Promise((resolve) => {
+          const intervalId = setInterval(() => {
+            if (window.get_user_expos && window.createAllGroups) {
+              clearInterval(intervalId);
+              resolve();
+            }
+          }, 100); // Vérifie toutes les 100 millisecondes si les fonctions sont définies (et donc prêtes)
+        });
+
+        // Maintenant que les fonctions sont disponibles, on peut les utiliser no problemo
+      async function start() {
+        document.querySelector(".default-tab").click();
+        console.log("Initiating Expoflux...")
+        window.mes_expos = createGroup("Mes exposés", ".my-expos-container");
+        window.mes_favoris = createGroup("Mes favoris", ".my-favoris-container");
+        await get_user_expos();
+        await get_favoris_expos();
+        console.log("Expoflux started without a problem!")
+      };
+      start();
+      };
+    var nav = document.getElementById("mainNav");
+    var navHeight = nav.offsetHeight;
+    var container = document.getElementsByClassName("container")[0];
+    container.style = "margin: " + navHeight + "px auto auto auto;";
+</script>
+</html>

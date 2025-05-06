@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Expoflux - Fil de nouveautés</title>
+      <link rel="stylesheet" href="css/style.css">
+      <link rel="icon" href="assets/icon.png">
+      <script src="js/check_mobile.js" defer></script>
+      <script type="module" src="js/auth/nav-account-banner.js" defer></script>
+      <link rel="stylesheet" href="css/bandeau.css">
+  <link rel="stylesheet" href="css/profile-banner.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.all.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
+      <nav id="mainNav">
+        <a href="index.html"><img id="logo" src="assets/logo.png"></a>
+        <a href="index.html">Accueil</a>
+        <a href="browse.html">Explorer</a>
+        <a href="login.html">Se connecter</a>
+        <a href="changelog.html">Fil de nouveautés</a>
+      </nav>
+</head>
+<body>
+<div class="container-text">
+  <h1><u>1.3  ️‍🎨 Design & Présentation (Octobre 2024)</u></h1>
+  <p>Cette mise à jour ajoute un système de thèmes et améliore en profondeur la présentation en ligne.</p>
+  <h3>📌 Ajouts</h3>
+  <ul>
+    <li>Refonte graphique du site Internet, couleurs changées en profondeur.</li>
+    <li>AverroStorage devient Expoflux pour mieux vous servir !</li>
+    <li>Le partage d'exposés est plus complet, avec réseaux sociaux.</li>
+    <li>Il est maintenant possible de présenter des images, audios, et vidéos en ligne ! En plein écran et de manière plus fluide qu'avant.</li>
+    <li>Il est maintenant possible de voir les exposés les plus récents des 30 derniers jours, et les exposés à plus de 50 vues.</li>
+    <li>Ajout d'un système de thèmes. Il est possible de modifier le thème dans les paramètres du compte sur la page Tableau de bord. Les modifications entraîneront quelques changements de couleurs. Disponible uniquement sur la page Exposé pour le moment.</li>
+  </ul>
+  <br>
+  <br>
+  <h1><u>1.2 👤 Comptes & Sécurité (Août 2024)</u></h1>
+  <p>Cette mise à jour ajoute un système de comptes, afin de sécuriser les exposés.</p>
+  <h3>📌 Ajouts</h3>
+  <ul>
+    <li>Ajout d'un système de comptes, avec une page de connexion et d'inscription.</li>
+    <li>Connecté, il est possible de voir tous les exposés publiés, de les modifier, ou de les supprimer.</li>
+    <li>Les fichiers et aperçus des exposés sont désormais limités à 30 Mo et 5 Mo respectivement.</li>
+    <li>Il est maintenant possible de voir l'auteur d'un exposé.</li>
+    <li>Il est maintenant d'ajouter un exposé en favoris à l'aide d'un bouton sur la page de ce dernier.</li>
+    <li>Lors de la publication d'un exposé, certains types de fichiers potentiellement dangeureux seront bloqués.</li>
+    <li>Des messages d'erreur apparaissent maintenant sur la page Exposé si l'URL est incorrecte, si l'exposé n'existe pas ou s'il est privé.</li>
+    <li>Publier un exposé est désormais limité aux utilisateurs connectés.</li>
+    <li>AverroStorage passe maintenant en HTTPS pour plus de sécurité !</li>
+  </ul>
+  <br>
+  <br>
+  <h1><u>1.1 📖 Éxposés en détail (Juin 2024)</u></h1>
+  <p>Cliquer sur un exposé redirige maintenant vers une page à part, avec plein de fonctionnalités !</p>
+  <h3>📌 Page Exposé</h3>
+  <ul>
+    <li>Le nom, la description de l'exposé.</li>
+    <li>Un compteur de téléchargements.</li>
+    <li>Quatre boutons pour télécharger l'exposé, le présenter en ligne, le signaler si il contient du contenu offensant, ou le partager avec un lien.</li>
+    <li>Des catégories pour la matière et l'extension du fichier de l'exposé.</li>
+    <li>La date précise à laquelle l'exposé a été publié.</li>
+  </ul>
+  <br>
+  <br>
+  <h1><u>1.0 ⚙ Remise d'aplomb (Juin 2024)</u></h1>
+  <p>Cette mise à jour remet la version Alpha (pre-2023) d'AverroStorage au goût du jour, sans trop la modifier pour autant.</p>
+  <h3>📌 Ajouts</h3>
+  <ul>
+    <li>Ajout d'une matière manquante, l'Anglais Euro.</li>
+    <li>Nous avons un magnifique nouveau logo !</li>
+    <li>Le site est désormais trouvable sur Google !</li>
+  </ul>
+  <h3>📌 Modifications</h3>
+  <ul>
+    <li>Code simplifié afin de permettre l'ajout de fonctionnalités plus poussées à l'avenir.</li>
+    <li>Publier un exposé se fait maintenant à l'aide d'un superbe bouton au lieu d'un lien.</li>
+  </ul>
+</div>
+</body>
+<script defer>
+  function littlePopup(options) {
+    Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        iconColor: 'white',
+        customClass: {
+            popup: 'colored-toast'
+        },
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+    }).fire(options);
+  };
+  var nav = document.getElementById("mainNav");
+  var navHeight = nav.offsetHeight;
+  var container = document.getElementsByClassName("container-text")[0];
+  container.style = "margin: " + navHeight + "px auto auto auto;";
+</script>
+</html>

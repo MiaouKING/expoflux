@@ -1,0 +1,11 @@
+#cropperjs {
+    display: block;
+    max-width: 100%;
+}
+  
+#crop_preview {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 10px;
+    border-radius: 100%;
+}
