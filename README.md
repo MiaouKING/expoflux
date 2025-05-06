@@ -11,7 +11,15 @@
 
 A presentation-hosting free website built entirely on front-end. With Firebase of course. Also, it's only available in french.
 
+> [!CAUTION]
+> Firebase recently decided to make Firebase Storage unusable without the pay-as-you-go Blaze plan starting 1st october 2025. Expoflux being completely dependent on it, the website will become unusable this 1st october. The project is therefore abandoned, and archived.<br>
+> https://firebase.google.com/docs/storage/faqs-storage-changes-announced-sept-2024?hl=fr
+
 Un site Internet 100% front-end d'hébergement d'exposés avec Firebase. Français seulement.
+
+> [!CAUTION]
+> Firebase a récemment décidé de rendre Firebase Storage inutilisable sans le plan payant Blaze à partir du 1er octobre 2025. Expoflux reposant entièrement dessus, le site deviendra inutilisable le 1er octobre. Le projet est donc abandonné, et archivé.<br>
+> https://firebase.google.com/docs/storage/faqs-storage-changes-announced-sept-2024?hl=fr
 
 ## Fonctionnalités disponibles
 
@@ -26,6 +34,11 @@ Un site Internet 100% front-end d'hébergement d'exposés avec Firebase. França
 | 🧪 | Expérimental |
 | ❌ | Non supporté |
 
+## Comment utiliser en ligne
+
+ 1. Va sur https://miaouking.github.io/expoflux/
+ 2. Profite !
+ 
 ## Comment utiliser localement
 
  1. Clone le repository.
