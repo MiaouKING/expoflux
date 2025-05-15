@@ -1,7 +1,6 @@
-import { getAPIs } from "/js/APIs.js";
-import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
-import { doc, setDoc, collection, addDoc, Timestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getAPIs } from "/expoflux/js/APIs.js";
+import { createUserWithEmailAndPassword, updateProfile, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { doc, setDoc, Timestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const APIs = getAPIs();
 window.APIs = APIs;
@@ -50,7 +49,7 @@ async function signup(e) {
             date: Timestamp.now(),
             settings: {
                             "theme":"dark"
-                      }
+                      },
             favoris: [],
             reports: []
             });

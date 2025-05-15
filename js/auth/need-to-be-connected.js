@@ -1,6 +1,5 @@
-import { getAPIs } from "/js/APIs.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { get_connected_user_info } from "/js/auth/get-connected-user-info.js"
+import { getAPIs } from "/expoflux/js/APIs.js";
+import { get_connected_user_info } from "/expoflux/js/auth/get-connected-user-info.js"
 
 const APIs = getAPIs();
 window.APIs = APIs;
