@@ -1,0 +1,226 @@
+*{
+  margin:0;
+  padding:0;
+}
+@font-face {
+    font-family: 'lunaregular';
+    src: url('./fonts/luna-webfont.woff2') format('woff2'),
+         url('./fonts/luna-webfont.woff') format('woff'),
+         url('./fonts/luna.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html{
+  font-family: 'arial';
+  font-size: 16px;
+}
+
+h1{
+  color: black;/*rgb(0,0,0) ou #000 */
+  font-size: 24px;
+  font-family: 'lunaregular';
+}
+h2{
+  color: black;
+  font-family: 'Lobster', cursive;
+}
+h3{
+  color: black;
+}
+a{
+  color: white;
+  text-decoration: none;
+  padding : 20px;
+}
+a:hover{
+  color: red;
+}
+
+#hero{
+  background: url('images/fond.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  /*height: 100%;pour prendre en compte les dimensions de padding à l'intérieur de cette grande DIV*/
+  padding-bottom: 1%;
+}
+
+nav{
+  background-color: rgba(0,0,0,0.5);
+  text-align: center;
+  padding: 20px;
+}
+
+#bandeau{
+  margin-top: 10%; /* 10% de la largeur de la fenêtre */
+  margin-bottom: 10%;
+  background-color: rgba(255,255,255,0.5);
+}
+
+#contenu{
+  text-align: center;
+  padding: 10%;/* 10% de la largeur de la fenêtre */
+}
+#contenu a{
+  color : red;
+  border : 1px solid red;
+  border-radius: 15px;
+  padding: 20px;
+  transition: all 1s;
+  -webkit-transform: rotate(20deg);
+}
+#contenu a:hover{
+  color : white;
+  background-color: rgba(178,32,19,0.8);
+  -ms-transform: rotate(20deg); /* IE 9 */
+  -webkit-transform: rotate(20deg); /* Safari */
+  transform: rotate(20deg);
+}
+
+#apropos{
+  background-color: white;
+  display: flex;
+}
+
+#apropos_image{
+  padding: 20px;
+  flex: 1;
+}
+
+#apropos_texte{
+  padding: 20px;
+  flex: 2;
+  text-align: justify;
+}
+
+#apropos_image img{
+  flex:1;
+  max-width: 100%;/*L'image prend au maximum la largeur de son contenant, soit 100% de 1/3*/
+}
+#services{
+  display : flex;
+  background-color: #666;
+  color: white;
+  padding : 20px;
+  text-align: center;
+}
+.services_item p{
+  text-align: justify;
+  padding: 20px;
+}
+#lead{
+  display: flex;
+  justify-content: center;
+  background-color: #e74c3c;
+  color: white;
+}
+#lead h2{
+  color: white;
+}
+.form{
+  padding: 20px;
+}
+
+footer{
+  display: flex;
+  justify-content: center;
+}
+
+footer a{
+  color: black;
+}
+
+footer a:hover{
+  color: #e74c3c;
+}
+
+.social{
+  padding: 20px;
+}
+
+
+
+#mce-success-response{
+  color: white!important;
+}
+
+/* Le modal*/
+.modal {
+  display: none;  /*Caché par défaut*/
+  position: fixed; /* Nécessaire pour positionner la DIV au bon endroit */
+  z-index: 1; /* Se place au-dessus */
+  left: 0;/*Collé au bord gauche*/
+  top: 0;/*Collé au bord haut*/
+
+
+
+  /* Pour pouvoir faire défiler le contenu */
+  overflow: auto;
+
+  background-color: rgba(243,235,72, 0.76); /* Jaune avec une transparence */
+  height: 100%; /* Pleine hauteur */
+  width: 100%; /* Pleine largeur */
+  z-index: 1; /* Se place au-dessus */
+
+
+}
+
+
+
+/* Le Bloc Central*/
+.modalBloc{
+  margin: 10% auto;
+  padding: 20px;
+  width: 50%;
+  text-align: center;
+  background-color: white;
+  color: black;
+  border-top: 10px solid black;
+}
+
+.modalTextTitle{
+  font-size: 60px;
+  font-family: 'Lobster', cursive;
+}
+.modalTextSubtitle{
+  font-size: 20px;
+}
+.modalText img{
+  width: 60%;
+}
+
+
+.modalBtn{
+  margin: 5%;
+}
+.modalBtn a{
+  color: white;
+  background-color:black;
+}
+.modalBtn a:hover{
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 414px){
+  /*ICI LES PRECEDENTES DECLARATIONS*/
+  nav a{
+    display: block;
+  }
+  .modalTextTitle{
+    font-size:40px;
+  }
+  .modalBloc{
+    width: 80%;
+  }
+  .modalBtn a{
+    display: block;
+    margin-bottom: 5%;
+  }
+  #apropos{
+    flex-direction: column;
+   }/*Ici, on referme la déclaration #apropos*/
+   #services{
+     flex-direction: column;
+   }/*Ici, on referme la déclaration #services*/
+  
+}/*Ici, on referme la media query*/

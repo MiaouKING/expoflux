@@ -1,5 +1,5 @@
-import { doc, updateDoc, getDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { getAPIs } from "/js/APIs.js";
+import { doc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getAPIs } from "/expoflux/js/APIs.js";
 
 const APIs = getAPIs();
 window.APIs = APIs;

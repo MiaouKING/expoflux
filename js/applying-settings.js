@@ -1,6 +1,6 @@
-import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { get_connected_user_info } from "/js/auth/get-connected-user-info.js";
-import { getAPIs } from "/js/APIs.js";
+import { getAPIs } from "/expoflux/js/APIs.js";
 
 const APIs = getAPIs();
 window.APIs = APIs;

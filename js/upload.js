@@ -1,7 +1,7 @@
-import { arrayUnion, doc, serverTimestamp, Timestamp, updateDoc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { getAPIs } from "/js/APIs.js";
+import { arrayUnion, doc, Timestamp, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getAPIs } from "/expoflux/js/APIs.js";
 import { getDownloadURL, ref, uploadBytesResumable } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
-import { crop_image } from "/js/cropopup.js";
+//import { crop_image } from "/js/cropopup.js";
 
 const APIs = getAPIs();
 window.APIs = APIs;

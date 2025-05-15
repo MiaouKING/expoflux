@@ -1,6 +1,4 @@
-import { arrayUnion, onSnapshot, collection, doc, serverTimestamp, Timestamp, updateDoc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { getAPIs } from "/js/APIs.js";
-import { getDownloadURL, ref, uploadBytesResumable } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+import { getAPIs } from "/expoflux/js/APIs.js";
 import { get_connected_user_info } from "/js/auth/get-connected-user-info.js"
 
 const APIs = getAPIs();

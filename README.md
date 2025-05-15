@@ -41,6 +41,9 @@ Un site Internet 100% front-end d'hébergement d'exposés avec Firebase. França
  
 ## Comment utiliser localement
 
+> [!CAUTION]
+> J'ai récemment modifié le projet pour être entièrement compatible avec GitHub Pages. Il est possible qu'il ne fonctionne plus en local, toutefois ce n'est pas avéré. Comme je l'ai déjà dit, ce projet est archivé dans tous les cas et je n'y ajouterai probablement plus de fonctionnalités
+
  1. Clone le repository.
  2. Ouvre le fichier `index.html`.
  3. Profite !

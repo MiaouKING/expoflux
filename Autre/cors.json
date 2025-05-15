@@ -1,0 +1,8 @@
+[
+    {
+      "origin": ["http://averrostorage.xp3.biz"],
+      "method": ["GET", "HEAD"],
+      "responseHeader": ["Content-Type"],
+      "maxAgeSeconds": 3600
+    }
+]

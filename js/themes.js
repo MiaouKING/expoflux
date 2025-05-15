@@ -1,7 +1,7 @@
-import { getAPIs } from "/js/APIs.js";
-import { get_connected_user_info } from "/js/auth/get-connected-user-info.js";
-import { get_user_from_uuid } from "/js/expo-page/get-user-from-uuid.js";
-import { is_connected } from "/js/auth/is_connected.js";
+import { getAPIs } from "/expoflux/js/APIs.js";
+import { get_connected_user_info } from "/expoflux/js/auth/get-connected-user-info.js";
+import { get_user_from_uuid } from "/expoflux/js/expo-page/get-user-from-uuid.js";
+import { is_connected } from "/expoflux/js/auth/is_connected.js";
 
 const APIs = await getAPIs();
 window.APIs = APIs;

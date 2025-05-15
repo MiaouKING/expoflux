@@ -1,5 +1,5 @@
-import { getAPIs } from "/js/APIs.js"
-import { onSnapshot, getDocs, collection } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"; //Firebase Cloud Firestore
+import { getAPIs } from "/expoflux/js/APIs.js"
+import { getDocs, collection } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"; //Firebase Cloud Firestore
 
 const APIs = getAPIs();
 const exposDir = collection(APIs.db, 'expos'); //Génère une variable avec l'emplacement du dossier Firebase contenant tous les docs des expos

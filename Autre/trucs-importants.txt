@@ -1,0 +1,40 @@
+Barre de recherche:
+
+HTML:
+<input type="search" placeholder="Recherche quelqu'un" id="searchBar" onChange="window.handleSubmit(get('searchBar', 'id').value)">
+
+CSS:
+#searchBar {
+  transition: 0.2s;
+  padding: 8px 14px;
+  margin: 0;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  background-color: var(--box-color);
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+
+Profile ou author banners
+
+<div class="profile-banner">
+          <img class="profile-icon" src="assets/def_pfp.png">
+          <div class="profile-banner-text">
+            <div class="profile-name">Nom d'utilisateur</div>
+            <br>
+            <div class="profile-email">Adresse e-mail</div>
+          </div>
+        </div>
+
+        <div class="author-banner">
+          <img class="author-icon" src="assets/def_pfp.png">
+          <div class="author-banner-text">
+            <div class="author-name">Nom d'utilisateur</div>
+          </div>
+        </div>
